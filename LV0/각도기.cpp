@@ -14,5 +14,4 @@ int solution(int angle) {
         return 3;
     }
     return 4;
-    
 }
