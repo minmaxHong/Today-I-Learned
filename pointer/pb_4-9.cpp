@@ -26,48 +26,60 @@ class CircleManager {
 public:
 	CircleManager(int size) {
 		this->size = size;
+
 		p = new Circle[size];
 		for (int i = 0; i < size; ++i) {
-			string circleInfo;
-			string name;
-			string radius_s;
+			string circleName;
 			int radius;
-
-			cout << "¿ø " << (i + 1) << "ÀÇ ÀÌ¸§°ú ¹ÝÁö¸§ >> ";
-			getline(cin, circleInfo);
-
-			int index = 0;
-			for (int i = 0; i < circleInfo.length(); ++i) {
-				if (circleInfo[i] == ' ') {
-					index = i;
-				}
-			}
-
-			for (int i = 0; i < index; ++i) {
-				name += circleInfo[i];
-			}
+			cout << "ï¿½ï¿½ " << i + 1 << "ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ >> ";
+			cin >> circleName >> radius;
 			
-			for (int i = index + 1; i < circleInfo.length(); ++i) {
-				radius_s += circleInfo[i];
-			}
-
-			radius = stoi(radius_s);
-
-
-
+			(p + i)->setCircle(circleName, radius);
 		}
 	}
+	~CircleManager(){
+		delete[] p;
+	}
 
+	void searchByName() {
+		string searchCircleName;
+		
+		cout << "ï¿½Ë»ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ >> ";
+		cin >> searchCircleName;
+
+		for (int i = 0; i < searchCircleName.length(); ++i) {
+			if ((p + i)->getName() == searchCircleName) {
+				cout << (p + i)->getName() << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << (p + i)->getArea() << "\n";
+			}
+		}
+	}
+	
+	void searchByArea() {
+		cout << "ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ >> ";
+		int minArea = 0;
+		cin >> minArea;
+
+		cout << minArea << "ï¿½ï¿½ï¿½ï¿½ Å« ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Õ´Ï´ï¿½." << "\n";
+		for (int i = 0; i < size; ++i) {
+			if ((p + i)->getArea() > minArea) {
+				cout << (p + i)->getName() << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " << (p + i)->getArea() << " ";
+			}
+		}
+		cout << ".";
+	}
 };
 
-
-
 int main() {
-	int size;
-	cout << "¿øÀÇ °³¼ö >> ";
-	cin >> size;
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
+	int circleNum = 0;
+	
+	cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ >> ";
+	cin >> circleNum;
+	cin.ignore();
+	CircleManager circles(circleNum);
 
-	CircleManager* manager = new CircleManager(size);
-
+	// ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ë»ï¿½
+	circles.searchByName();
+	circles.searchByArea();
 
 }
